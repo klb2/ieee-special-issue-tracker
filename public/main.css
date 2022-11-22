@@ -1,20 +1,27 @@
 body {
 	background-color: #fefefe;
 	color: #000;
+	font-size: 14pt;
 }
 
-
-table, thead, tr, td {
-	border: none;
-}
 
 table {
 	border-collapse: collapse;
 	border-bottom: 1px solid #000;
 	border-top: 1px solid #000;
+	width: 80%;
 }
 thead {
 	text-align: center;
 	border-bottom: 1px solid #000;
 }
-tr:hover {background-color: #f0f0f0;}
+tbody tr:nth-child(odd){
+  background-color: #fafafa;
+}
+tbody tr:hover {background-color: #f0f0f0;}
+
+th, td {
+	padding: 10px 10px;
+	vertical-align: center;
+}
+
