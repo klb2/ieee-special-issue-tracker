@@ -9,11 +9,15 @@ table {
 	border-collapse: collapse;
 	border-bottom: 1px solid #000;
 	border-top: 1px solid #000;
-	width: 80%;
+	width: 100%;
+	max-width: 1500px;
 }
 thead {
 	text-align: center;
 	border-bottom: 1px solid #000;
+}
+thead th:nth-child(1) {
+  width: 60%;
 }
 tbody tr:nth-child(odd){
   background-color: #fafafa;
