@@ -6,7 +6,7 @@
 	</head>
 	<body>
 		{% for society in societies %}
-		<h1 id="{{ society.id }}">{{ society.name }}</h1>
+		<h1 id="{{ society.id }}"><a href="{{ society.url }}">{{ society.name }}</a></h1>
 		{{ society.table }}
 		{% endfor %}
 	</body>
