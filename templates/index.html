@@ -5,9 +5,18 @@
 		<link rel="stylesheet" href="main.css">
 	</head>
 	<body>
+		<nav>
+			<ul class="navlinks">
+			{% for society in societies %}
+			<li><a href="#{{ society.id }}">{{ society.name }}</a></li>
+			{% endfor %}
+			</ul>
+		</nav>
 		{% for society in societies %}
+		<section>
 		<h1 id="{{ society.id }}"><a href="{{ society.url }}">{{ society.name }}</a></h1>
 		{{ society.table }}
+		</section>
 		{% endfor %}
 	</body>
 </html>
