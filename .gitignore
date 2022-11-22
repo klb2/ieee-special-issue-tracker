@@ -131,3 +131,6 @@ dmypy.json
 
 # Data
 *.dat
+
+
+public/index.html

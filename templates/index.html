@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>IEEE Special Issue Tracker</title>
+		<link rel="stylesheet" href="main.css">
+	</head>
+	<body>
+		{% for society in societies %}
+		<h1 id="{{ society.id }}">{{ society.name }}</h1>
+		{{ society.table }}
+		{% endfor %}
+	</body>
+</html>
