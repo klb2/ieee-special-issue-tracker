@@ -6,10 +6,12 @@ import jinja2
 
 import comsoc
 import spsoc
+import itsoc
 
 from constants import COL_DEADLINE, COL_TOPIC, COL_JOURNAL, COL_PUB_DATE
 
 FORMATTER_DATE = lambda x: datetime.strftime(x, "%B %d, %Y")
+FORMATTER_UNESCAPE = lambda x: x.replace("&gt;", ">").replace("&lt;", "<")
 
 SOCIETIES = [
         {"name": "Communications Society",
@@ -21,6 +23,11 @@ SOCIETIES = [
          "id": "spsoc",
          "url": "https://signalprocessingsociety.org/",
          "module": spsoc,
+        },
+        {"name": "Information Theory Society",
+         "id": "itsoc",
+         "url": "https://www.itsoc.org/",
+         "module": itsoc,
         },
         ]
 
@@ -36,6 +43,7 @@ def generate_society_table(module, **kwargs):
     data = data.sort_values(COL_DEADLINE)
     data = data[[COL_TOPIC, COL_DEADLINE, COL_JOURNAL, COL_PUB_DATE]]
     html_table = data.to_html(index=False, border=False, justify='unset',
+                              escape=False,
                               formatters={COL_DEADLINE: FORMATTER_DATE})
     return html_table
 

@@ -30,7 +30,8 @@ def parse_comsoc_cfp(url: str, journal_name: str):
     rows = body.find_all("tr")
     content_rows = [list(_row.stripped_strings) for _row in rows]
     data = pd.DataFrame(data=content_rows, columns=columns)
-    data[COL_JOURNAL] = journal_name
+    #data[COL_JOURNAL] = journal_name
+    data[COL_JOURNAL] = f'<a href="{url}">{journal_name}</a>'
     return data
 
 def translate_data_formats(data: pd.DataFrame):
