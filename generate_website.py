@@ -7,6 +7,7 @@ import jinja2
 import comsoc
 import spsoc
 import itsoc
+import vtsoc
 
 from constants import COL_DEADLINE, COL_TOPIC, COL_JOURNAL, COL_PUB_DATE
 
@@ -28,6 +29,11 @@ SOCIETIES = [
          "id": "itsoc",
          "url": "https://www.itsoc.org/",
          "module": itsoc,
+        },
+        {"name": "Vehicular Technology Society",
+         "id": "vtsoc",
+         "url": "https://vtsociety.org/",
+         "module": vtsoc,
         },
         ]
 
