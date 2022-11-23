@@ -36,7 +36,6 @@ jobs:
 
   deploy:
     needs: build
-    if: ${{ github.event_name == 'pull_request' }}
 
     permissions:
       pages: write
