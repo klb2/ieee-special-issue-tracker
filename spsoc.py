@@ -1,4 +1,5 @@
 import re
+import unicodedata
 
 import pandas as pd
 import requests
@@ -8,6 +9,7 @@ from constants import COL_JOURNAL, COL_DEADLINE, COL_PUB_DATE, COL_TOPIC
 
 #URL = "https://signalprocessingsociety.org/publications-resources/special-issue-deadlines"
 URL = "https://signalprocessingsociety.org/publications-resources/special-issue-deadlines?tid=All&sort_by=field_date_value&sort_order=ASC&page={}"
+URL_SOC = "https://signalprocessingsociety.org"
 
 RE_POST_HEADER = r'(IEEE .+) Special Issue on (.+)'
 RE_DATE = r'.+: ((?:\d{1,2} )?\w+ (?:\d{1,2}, )?\d{4})'
@@ -43,6 +45,11 @@ def get_cfp_single_page(number: int):
             pub_date = re.match(RE_DATE, str(_date_strings[1]))[1]
         except TypeError:
             pub_date = "Unknown"
+        try:
+            url_cfp = f"{URL_SOC}{body.find('a')['href']}"
+            topic = f'<a href="{url_cfp}">{topic}</a>'
+        except:
+            url_cfp = ""
         rows.append([topic, due_date, pub_date, journal])
     if not rows:
         raise ValueError("No entries found")
