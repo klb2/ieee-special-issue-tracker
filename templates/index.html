@@ -12,6 +12,8 @@
 			{% endfor %}
 			</ul>
 		</nav>
+		<p>Latest update: {{ timestamp }} </p>
+
 		{% for society in societies %}
 		<section>
 		<h1 id="{{ society.id }}"><a href="{{ society.url }}">{{ society.name }}</a></h1>

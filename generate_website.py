@@ -55,7 +55,8 @@ def main():
 
     env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
     template = env.get_template("index.html")
-    content = template.render(societies=SOCIETIES)
+    timestamp = datetime.now().strftime("%B %d, %Y")
+    content = template.render(societies=SOCIETIES, timestamp=timestamp)
     out_path = os.path.join("public", "index.html")
     with open(out_path, 'w') as html_file:
         html_file.write(content)
