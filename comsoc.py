@@ -39,9 +39,9 @@ def parse_comsoc_cfp(url: str, journal_name: str):
         topic = unicodedata.normalize("NFKD", cells[0].text).strip()
         try:
             url_cfp = f"{URL_SOC}{cells[0].find('a')['href']}"
+            topic = f'<a href="{url_cfp}">{topic}</a>'
         except:
             url_cfp = ""
-        topic = f'<a href="{url_cfp}">{topic}</a>'
         pub_date = unicodedata.normalize("NFKD", cells[1].text).strip()
         due_date = unicodedata.normalize("NFKD", cells[2].text).strip()
         content_rows.append([topic, pub_date, due_date])
