@@ -46,6 +46,13 @@ ul.navlinks li {
 	text-align: center;
 }
 
+h1 {
+	font-size: 24pt;
+}
+h1 a {
+	text-decoration: none;
+}
+
 
 table {
 	border-collapse: collapse;
@@ -56,7 +63,7 @@ table {
 }
 
 thead {
-	text-align: center;
+	text-align: left;
 	border-bottom: 1px solid #393;
 }
 thead th:nth-child(1) {
