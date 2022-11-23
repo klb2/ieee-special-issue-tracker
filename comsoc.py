@@ -1,9 +1,13 @@
+import unicodedata
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
 from constants import COL_JOURNAL, COL_DEADLINE, COL_PUB_DATE, COL_TOPIC
 
+
+URL_SOC = "https://www.comsoc.org"
 JOURNALS = {
         "JSAC": "https://www.comsoc.org/publications/journals/ieee-jsac/cfp",
         "TCCN": "https://www.comsoc.org/publications/journals/ieee-tccn/cfp",
@@ -28,9 +32,20 @@ def parse_comsoc_cfp(url: str, journal_name: str):
     columns = [th.text.strip() for th in header]
     body = table.findChild("tbody")
     rows = body.find_all("tr")
-    content_rows = [list(_row.stripped_strings) for _row in rows]
+    #content_rows = [list(_row.stripped_strings) for _row in rows]
+    content_rows = []
+    for post in rows:
+        cells = post.find_all("td")
+        topic = unicodedata.normalize("NFKD", cells[0].text).strip()
+        try:
+            url_cfp = f"{URL_SOC}{cells[0].find('a')['href']}"
+            topic = f'<a href="{url_cfp}">{topic}</a>'
+        except:
+            url_cfp = ""
+        pub_date = unicodedata.normalize("NFKD", cells[1].text).strip()
+        due_date = unicodedata.normalize("NFKD", cells[2].text).strip()
+        content_rows.append([topic, pub_date, due_date])
     data = pd.DataFrame(data=content_rows, columns=columns)
-    #data[COL_JOURNAL] = journal_name
     data[COL_JOURNAL] = f'<a href="{url}">{journal_name}</a>'
     return data
 
@@ -47,3 +62,6 @@ def get_all_cfp():
     data = pd.concat(data, ignore_index=True)
     data = translate_data_formats(data)
     return data
+
+if __name__ == "__main__":
+    data = get_all_cfp()

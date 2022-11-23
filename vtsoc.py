@@ -24,9 +24,9 @@ def get_all_cfp():
         topic = unicodedata.normalize("NFKD", cells[0].text)
         try:
             url_cfp = f"{URL_SOC}{cells[1].find('a')['href']}"
+            topic = f'<a href="{url_cfp}">{topic}</a>'
         except:
             url_cfp = ""
-        topic = f'<a href="{url_cfp}">{topic}</a>'
         date_string = cells[2].text
         date_string = unicodedata.normalize("NFKD", date_string)
         try:
