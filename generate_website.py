@@ -41,6 +41,7 @@ def clean_dataframe(data):
     deadlines = pd.to_datetime(data[COL_DEADLINE], errors='coerce')
     data[COL_DEADLINE] = deadlines
     data = data.dropna()
+    data = data[data[COL_DEADLINE] >= datetime.today()]
     return data
 
 def generate_society_table(module, **kwargs):
