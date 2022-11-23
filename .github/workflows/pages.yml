@@ -32,7 +32,6 @@ jobs:
       - name: Saving website
         uses: actions/upload-pages-artifact@main
         with:
-          name: github-pages
           path: public/
 
   deploy:
