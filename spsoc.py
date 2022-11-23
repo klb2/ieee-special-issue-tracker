@@ -35,6 +35,7 @@ def get_cfp_single_page(number: int):
     for post in posts:
         header = post.find("header").find("h2").text.strip()
         journal, topic = re.match(RE_POST_HEADER, header).groups()
+        journal = f'<a href="{url}">{journal}</a>'
         body = post.find("p")
         _date_strings = list(body.stripped_strings)
         due_date = re.match(RE_DATE, str(_date_strings[0]))[1]
