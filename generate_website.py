@@ -49,6 +49,8 @@ def generate_society_table(module, **kwargs):
     data = clean_dataframe(data)
     data = data.sort_values(COL_DEADLINE)
     data = data[[COL_TOPIC, COL_DEADLINE, COL_JOURNAL, COL_PUB_DATE]]
+    if data.empty:
+        return "No open call for papers"
     html_table = data.to_html(index=False, border=False, justify='unset',
                               escape=False,
                               formatters={COL_DEADLINE: FORMATTER_DATE})
