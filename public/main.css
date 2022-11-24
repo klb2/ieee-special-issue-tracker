@@ -20,7 +20,7 @@ body {
 }
 
 section {
-	margin-top: 40px;
+	margin-top: 50px;
 }
 
 a {
@@ -48,6 +48,7 @@ ul.navlinks li {
 
 h1 {
 	font-size: 24pt;
+	margin: 10px 0;
 }
 h1 a {
 	text-decoration: none;
