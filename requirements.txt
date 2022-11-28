@@ -1,4 +1,4 @@
 requests
 bs4
 jinja2
-pandas
+pandas>=1.5
