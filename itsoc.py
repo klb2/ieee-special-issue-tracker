@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 from constants import COL_JOURNAL, COL_DEADLINE, COL_PUB_DATE, COL_TOPIC
 
 URL = "https://www.itsoc.org/jsait/calls-for-papers"
+URL_SOC = "https://www.itsoc.org"
 
 RE_ENTRY_TITLE = r'(?:CFP: )?(.+) (?:(\(Closed\)|\(Currently Open\)))'
 RE_DATE = r'.+ ((?:\d{1,2} )?\w+ (?:\d{1,2}, )?\d{4})'
@@ -22,6 +23,13 @@ def get_all_cfp():
         if len(_strings) < 4:
             continue
         topic = re.match(RE_ENTRY_TITLE, str(_strings[0]))[1]
+        try:
+            cfp_file_div = entry.find_all("div", "file")[0]
+            url_cfp = cfp_file_div.find("a")['href']
+            url_cfp = f"{URL_SOC}{url_cfp}"
+            topic = f'<a href="{url_cfp}">{topic}</a>'
+        except:
+            url_cfp = ""
         #description = _strings[1]
         try:
             due_date = re.match(RE_DATE, str(_strings[-2]))[1]
