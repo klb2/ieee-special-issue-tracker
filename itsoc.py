@@ -9,7 +9,7 @@ from constants import COL_JOURNAL, COL_DEADLINE, COL_PUB_DATE, COL_TOPIC
 URL = "https://www.itsoc.org/jsait/calls-for-papers"
 URL_SOC = "https://www.itsoc.org"
 
-RE_ENTRY_TITLE = r'(?:CFP: )?(.+) (?:(\(Closed\)|\(Currently Open\)))'
+RE_ENTRY_TITLE = r'(?:CFP: )?(.+?)\s?(?:(\(Closed\)|\(Currently Open\))|$)'
 RE_DATE = r'.+ ((?:\d{1,2} )?\w+ (?:\d{1,2}, )?\d{4})'
 
 def get_all_cfp():
