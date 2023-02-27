@@ -11,7 +11,7 @@ from constants import COL_JOURNAL, COL_DEADLINE, COL_PUB_DATE, COL_TOPIC
 URL = "https://signalprocessingsociety.org/publications-resources/special-issue-deadlines?tid=All&sort_by=field_date_value&sort_order=ASC&page={}"
 URL_SOC = "https://signalprocessingsociety.org"
 
-RE_POST_HEADER = r'(IEEE .+) Special Issue on (.+)'
+RE_POST_HEADER = r'(IEEE .+) Special (?:Issue|Series) on (.+)'
 RE_DATE = r'.+: ((?:\d{1,2} )?\w+ (?:\d{1,2}, )?\d{4})'
 
 
@@ -36,6 +36,7 @@ def get_cfp_single_page(number: int):
     rows = []
     for post in posts:
         header = post.find("header").find("h2").text.strip()
+        print(header)
         journal, topic = re.match(RE_POST_HEADER, header).groups()
         journal = f'<a href="{url}">{journal}</a>'
         body = post.find("p")
