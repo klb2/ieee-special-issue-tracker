@@ -43,4 +43,4 @@ def get_all_cfp():
     return data
 
 if __name__ == "__main__":
-    entries = get_all_cfp()
+    data = get_all_cfp()

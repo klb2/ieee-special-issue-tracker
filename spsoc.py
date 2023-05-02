@@ -36,7 +36,7 @@ def get_cfp_single_page(number: int):
     rows = []
     for post in posts:
         header = post.find("header").find("h2").text.strip()
-        print(header)
+        #print(header)
         journal, topic = re.match(RE_POST_HEADER, header).groups()
         journal = f'<a href="{url}">{journal}</a>'
         body = post.find("p")

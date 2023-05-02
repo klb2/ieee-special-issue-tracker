@@ -38,7 +38,8 @@ SOCIETIES = [
         ]
 
 def clean_dataframe(data):
-    deadlines = pd.to_datetime(data[COL_DEADLINE], errors='coerce')
+    deadlines = pd.to_datetime(data[COL_DEADLINE], format="mixed",
+                               errors='coerce')
     data[COL_DEADLINE] = deadlines
     data = data.dropna()
     data = data[data[COL_DEADLINE] >= datetime.today()]
@@ -46,7 +47,9 @@ def clean_dataframe(data):
 
 def generate_society_table(module, **kwargs):
     data = module.get_all_cfp()
+    print(len(data))
     data = clean_dataframe(data)
+    print(len(data))
     data = data.sort_values(COL_DEADLINE)
     data = data[[COL_TOPIC, COL_DEADLINE, COL_JOURNAL, COL_PUB_DATE]]
     if data.empty:
