@@ -10,31 +10,29 @@ from constants import COL_JOURNAL, COL_DEADLINE, COL_PUB_DATE, COL_TOPIC
 URL = "https://vtsociety.org/publication/ieee-ojvt/special-issues"
 URL_SOC = "https://vtsociety.org"
 
-RE_TOPIC = r'Special (?:Issue|Series) on (.+)'
 RE_DATE = r'Manuscript submission: (.+? \d{1,2}, \d{4})(?:.*)Final publication: (.+)'
 
 
 def get_all_cfp():
     resp = requests.get(URL)
     soup = BeautifulSoup(resp.text, 'html.parser')
-    #posts = soup("table")[0].find_all("tr")
-    posts = soup.find("div", attrs={"class": "block-views-blockmedia-call-documents-block-card-grid"})
-    posts = posts.find_all("li")
+    posts = soup("table")[0].find_all("tr")
     journal = "OJVT"
     rows = []
     for post in posts:
-        title_cell = post.find("h3").find("a")
-        topic = unicodedata.normalize("NFKD", title_cell.text)
-        topic = re.match(RE_TOPIC, topic).groups()[0]
+        cells = post.find_all("td")
+        topic = unicodedata.normalize("NFKD", cells[0].text)
         try:
-            url_cfp = title_cell['href']
+            url_cfp = f"{URL_SOC}{cells[1].find('a')['href']}"
             topic = f'<a href="{url_cfp}">{topic}</a>'
         except:
             url_cfp = ""
-        date = post.find("time")
-        due_date = date['datetime']
-        due_date = due_date[:10]
-        pub_date = "Unknown"
+        date_string = cells[2].text
+        date_string = unicodedata.normalize("NFKD", date_string)
+        try:
+            due_date, pub_date = re.match(RE_DATE, date_string).groups()
+        except:
+            continue
         journal = f'<a href="{URL}">{journal}</a>'
         rows.append([topic, due_date, pub_date, journal])
     if not rows:

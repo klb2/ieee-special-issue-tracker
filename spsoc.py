@@ -35,7 +35,7 @@ def get_all_cfp():
         due_date = re.match(RE_DATE, str(_date_strings[0]))[1]
         try:
             pub_date = re.match(RE_DATE, str(_date_strings[1]))[1]
-        except TypeError:
+        except: #TypeError:
             pub_date = "Unknown"
         try:
             url_cfp = f"{URL_SOC}{body.find('a')['href']}"
