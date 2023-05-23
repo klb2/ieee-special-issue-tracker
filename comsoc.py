@@ -5,6 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from constants import COL_JOURNAL, COL_DEADLINE, COL_PUB_DATE, COL_TOPIC
+from others import _iotj_cfp
 
 
 URL_SOC = "https://www.comsoc.org"
@@ -16,6 +17,9 @@ JOURNALS = {
         "TMBMC": "https://www.comsoc.org/publications/journals/ieee-tmbmc/cfp",
         "TNSE": "https://www.comsoc.org/publications/journals/ieee-tnse/cfp",
         "TNSM": "https://www.comsoc.org/publications/journals/ieee-tnsm/cfp",
+        }
+SPECIAL_JOURNALS = {
+        "IOTJ": _iotj_cfp,
         }
 
 _COL_DEADLINE = 'Manuscript Submission Deadline'
@@ -47,6 +51,7 @@ def parse_comsoc_cfp(url: str, journal_name: str):
         content_rows.append([topic, pub_date, due_date])
     data = pd.DataFrame(data=content_rows, columns=columns)
     data[COL_JOURNAL] = f'<a href="{url}">{journal_name}</a>'
+    data = translate_data_formats(data)
     return data
 
 def translate_data_formats(data: pd.DataFrame):
@@ -59,9 +64,12 @@ def get_all_cfp():
     data = []
     for journal, url in JOURNALS.items():
         data.append(parse_comsoc_cfp(url, journal))
+    for journal, func in SPECIAL_JOURNALS.items():
+        data.append(func(journal=journal))
     data = pd.concat(data, ignore_index=True)
-    data = translate_data_formats(data)
+    #data = translate_data_formats(data)
     return data
+
 
 if __name__ == "__main__":
     data = get_all_cfp()
