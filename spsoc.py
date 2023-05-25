@@ -27,8 +27,9 @@ def get_all_cfp():
     for post in posts:
         _cells = post.find_all("td")
         _info = _cells[0]
-        header = _info.find("h4").text.strip()
-        journal, topic = re.match(RE_POST_HEADER, header).groups()
+        header = _info.find("h4")#.text.strip()
+        header_text = header.text.strip()
+        journal, topic = re.match(RE_POST_HEADER, header_text).groups()
         journal = f'<a href="{URL}">{journal}</a>'
         body = post.find("p")
         _date_strings = list(body.stripped_strings)
@@ -41,7 +42,11 @@ def get_all_cfp():
             url_cfp = f"{URL_SOC}{body.find('a')['href']}"
             topic = f'<a href="{url_cfp}">{topic}</a>'
         except:
-            url_cfp = ""
+            try:
+                url_cfp = f"{URL_SOC}{header.find('a')['href']}"
+                topic = f'<a href="{url_cfp}">{topic}</a>'
+            except:
+                url_cfp = ""
         rows.append([topic, due_date, pub_date, journal])
     if not rows:
         raise ValueError("No entries found")
