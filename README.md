@@ -1,5 +1,7 @@
 # IEEE Special Issue Tracker
 
+![build workflow](https://github.com/klb2/ieee-special-issue-tracker/actions/workflows/pages.yml/badge.svg)
+
 **Website: https://klb2.github.io/ieee-special-issue-tracker/**
 
 This repository provides a simple website that lists open call for papers for
