@@ -7,7 +7,8 @@ from bs4 import BeautifulSoup
 
 from constants import COL_JOURNAL, COL_DEADLINE, COL_PUB_DATE, COL_TOPIC
 
-URL = "https://signalprocessingsociety.org/publications-resources/special-issue-deadlines"
+#URL = "https://signalprocessingsociety.org/publications-resources/special-issue-deadlines"
+URL = "https://signalprocessingsociety.org/publications-resources/special-issue-deadlines?page={}"
 #URL = "https://signalprocessingsociety.org/publications-resources/special-issue-deadlines?tid=All&sort_by=field_date_value&sort_order=ASC&page={}"
 URL_SOC = "https://signalprocessingsociety.org"
 
@@ -18,16 +19,23 @@ RE_DATE = r'.+: ((?:\d{1,2} )?\w+ (?:\d{1,2}, )?\d{4})'
 def get_all_cfp():
     resp = requests.get(URL)
     soup = BeautifulSoup(resp.text, 'html.parser')
-    #posts = soup.find_all("section", "post-content")
-    _content = soup.find("div", {"class": "content"})
-    _table = soup.find("table")
-    _table = _table.find("tbody")
-    posts = _table.find_all("tr")
+    page_items = soup.find_all("li", {"class": "pager-item"})
+    num_pages = len(page_items) + 1
+    rows = []
+    for page in range(num_pages):
+        _page_rows = get_single_page(page)
+        rows.append(_page_rows)
+    rows = pd.concat(rows)
+    return rows
+
+def get_single_page(page=0):
+    url = URL.format(page)
+    resp = requests.get(url)
+    soup = BeautifulSoup(resp.text, 'html.parser')
+    posts = soup.find_all("section", {"class": "post-content"})
     rows = []
     for post in posts:
-        _cells = post.find_all("td")
-        _info = _cells[0]
-        header = _info.find("h4")#.text.strip()
+        header = post.find("h2")#.text.strip()
         header_text = header.text.strip()
         journal, topic = re.match(RE_POST_HEADER, header_text).groups()
         journal = f'<a href="{URL}">{journal}</a>'
