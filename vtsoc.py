@@ -10,12 +10,12 @@ from constants import COL_JOURNAL, COL_DEADLINE, COL_PUB_DATE, COL_TOPIC
 URL = "https://vtsociety.org/publication/ieee-ojvt/special-issues"
 URL_SOC = "https://vtsociety.org"
 
-RE_DATE = r'Manuscript submission: (.+? \d{1,2}, \d{4})(?:.*)Final publication: (.+)'
+RE_DATE = r"Manuscript submission: (.+? \d{1,2}, \d{4})(?:.*)Final publication: (.+)"
 
 
 def get_all_cfp():
     resp = requests.get(URL)
-    soup = BeautifulSoup(resp.text, 'html.parser')
+    soup = BeautifulSoup(resp.text, "html.parser")
     posts = soup("table")[0].find_all("tr")
     journal = "OJVT"
     rows = []
@@ -37,8 +37,11 @@ def get_all_cfp():
         rows.append([topic, due_date, pub_date, journal])
     if not rows:
         raise ValueError("No entries found")
-    data = pd.DataFrame(data=rows, columns=[COL_TOPIC, COL_DEADLINE, COL_PUB_DATE, COL_JOURNAL])
+    data = pd.DataFrame(
+        data=rows, columns=[COL_TOPIC, COL_DEADLINE, COL_PUB_DATE, COL_JOURNAL]
+    )
     return data
+
 
 if __name__ == "__main__":
     data = get_all_cfp()
