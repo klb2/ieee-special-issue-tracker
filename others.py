@@ -41,8 +41,6 @@ def _iotj_cfp(journal="IOTJ"):
             continue
         pub_date = "Unknown"
         rows.append([topic, due_date, pub_date, journal])
-    if not rows:
-        raise ValueError("No entries found")
     data = pd.DataFrame(
         data=rows, columns=[COL_TOPIC, COL_DEADLINE, COL_PUB_DATE, COL_JOURNAL]
     )
