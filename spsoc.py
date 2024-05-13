@@ -67,3 +67,4 @@ def get_single_page(page=0):
 
 if __name__ == "__main__":
     data = get_all_cfp()
+    print(data)

@@ -48,3 +48,4 @@ def get_all_cfp():
 
 if __name__ == "__main__":
     data = get_all_cfp()
+    print(data)
