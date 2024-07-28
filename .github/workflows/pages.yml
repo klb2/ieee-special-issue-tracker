@@ -8,6 +8,13 @@ on:
   schedule:
     # Run every Sunday at 6pm
     - cron: '0 18 * * 0'
+  workflow_dispatch:
+    inputs:
+      manually:
+        type: boolean
+        required: false
+        default: true
+        description: "Workflow started manually"
 
 jobs:
   build:
