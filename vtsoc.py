@@ -11,6 +11,7 @@ URL_SOC = "https://vtsociety.org"
 JOURNALS = {
         "OJVT": "https://vtsociety.org/publication/ieee-ojvt/special-issues",
         "TVT": "https://vtsociety.org/publication/transactions-vehicular-technology/call-papers",
+        "VTM": "https://vtsociety.org/publication/vtmagazine#documents",
         }
 
 #RE_DATE = r"Manuscript submission: (.+? \d{1,2}, \d{4})(?:.*)Final publication: (.+)"
@@ -31,7 +32,11 @@ def parse_journal_cfp(url: str, journal: str):
     posts = soup("main")[0].find_all("article")
     rows = []
     for post in posts:
-        topic_cell = post.find("h3").find("a")
+        try:
+            topic_cell = post.find("h3").find("a")
+        except AttributeError:
+            break
+            #return
         topic = unicodedata.normalize("NFKD", topic_cell.get_text(strip=True))
         try:
             url_cfp = f"{topic_cell['href']}"
@@ -44,8 +49,8 @@ def parse_journal_cfp(url: str, journal: str):
             due_date = _match.groups()[0]
         except:
             continue
-        journal = f'<a href="{url}">{journal}</a>'
-        rows.append([topic, due_date, pub_date, journal])
+        journal_url = f'<a href="{url}">{journal}</a>'
+        rows.append([topic, due_date, pub_date, journal_url])
     #if not rows:
     #    raise ValueError("No entries found")
     data = pd.DataFrame(
@@ -56,3 +61,4 @@ def parse_journal_cfp(url: str, journal: str):
 
 if __name__ == "__main__":
     data = get_all_cfp()
+    print(data)
