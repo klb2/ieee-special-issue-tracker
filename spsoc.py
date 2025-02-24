@@ -41,6 +41,9 @@ def get_single_page(page=0):
         journal, topic = re.match(RE_POST_HEADER, header_text).groups()
         journal = f'<a href="{URL}">{journal}</a>'
         body = post.find("p")
+        for _match in body.find_all("strong"):
+            _match.unwrap()
+        body.smooth()
         _date_strings = list(body.stripped_strings)
         due_date = re.match(RE_DATE, str(_date_strings[0]))[1]
         try:
@@ -57,7 +60,7 @@ def get_single_page(page=0):
             except:
                 url_cfp = ""
         rows.append([topic, due_date, pub_date, journal])
-    #if not rows:
+    # if not rows:
     #    raise ValueError("No entries found")
     data = pd.DataFrame(
         data=rows, columns=[COL_TOPIC, COL_DEADLINE, COL_PUB_DATE, COL_JOURNAL]
