@@ -18,7 +18,7 @@ def _iotj_cfp(journal="IOTJ"):
     rows = []
 
     headers = {
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"
     }
     resp = requests.get(url, headers=headers)
     soup = BeautifulSoup(resp.text, "html.parser")
