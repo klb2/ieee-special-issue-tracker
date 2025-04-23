@@ -9,7 +9,7 @@ from constants import COL_JOURNAL, COL_DEADLINE, COL_PUB_DATE, COL_TOPIC
 
 
 RE_TOPIC = r"(?:Special (?:Issue|issue) on )?(.+)"
-RE_DATE = r"Submission Deadline: ((?:\d{1,2} )?\w+ (?:\d{1,2}, )?\d{4})"
+RE_DATE = r"Submission Deadline: (\w+ (?:\d{1,2}\w+, )?\d{4})"
 
 
 def _iotj_cfp(journal="IOTJ"):
