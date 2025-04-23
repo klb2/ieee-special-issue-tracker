@@ -32,9 +32,9 @@ def parse_comsoc_cfp(url: str, journal_name: str):
     soup = BeautifulSoup(resp.text, "html.parser")
     tables = soup.find_all("table")
     table = tables[0]
-    header = table.findChildren("th")
+    header = table.find_all("th")
     columns = [th.text.strip() for th in header]
-    body = table.findChild("tbody")
+    body = table.find("tbody")
     rows = body.find_all("tr")
     # content_rows = [list(_row.stripped_strings) for _row in rows]
     content_rows = []
