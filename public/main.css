@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap');
 
+* {
+  scroll-behavior: smooth;
+}
 
 body {
 	--webkit-font-smoothing: antialiased;
@@ -17,6 +20,11 @@ body {
 ::selection {
   background: #393;
   color: #fdfdfd;
+}
+
+main {
+  width: fit-content;
+  margin: auto;
 }
 
 section {
@@ -38,12 +46,17 @@ ul.navlinks {
 	margin: 0;
 	display: flex;
 	width: 100%;
-	max-width: 1500px;
+	/*max-width: 1500px;*/
+  justify-content: right;
 }
 
 ul.navlinks li {
 	margin: 10px 15px;
 	text-align: center;
+}
+
+p.updated {
+  text-align: right;
 }
 
 h1 {
