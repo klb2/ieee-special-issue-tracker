@@ -13,7 +13,7 @@ URL = "https://signalprocessingsociety.org/publications-resources/special-issue-
 URL_SOC = "https://signalprocessingsociety.org"
 
 RE_POST_HEADER = r"(IEEE .+) Special (?:Issue|Series|Section) on (.+)"
-RE_DATE = r".+: ((?:\d{1,2} )?\w+ (?:\d{1,2}, )?\d{4})"
+RE_DATE = r".+:\s((?:\d{1,2} )?\w+\s(?:\d{1,2}, )?\d{4})"
 
 
 def get_all_cfp():
