@@ -17,7 +17,8 @@ RE_DATE = r"Deadline:\s+((?:\d{1,2} )?\w+ (?:\d{1,2}, )?\d{4})"
 
 
 def get_all_cfp():
-    resp = requests.get(URL)
+    headers = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:140.0) Gecko/20100101 Firefox/140.0"}
+    resp = requests.get(URL, headers=headers)
     LOGGER.debug(f"Response code: {resp.status_code}")
     soup = BeautifulSoup(resp.text, "html.parser")
     LOGGER.debug(soup)

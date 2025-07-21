@@ -32,7 +32,10 @@ def get_all_cfp():
 
 def parse_journal_cfp(url: str, journal: str):
     LOGGER.info(f"Parsing journal {journal}")
-    resp = requests.get(url)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:140.0) Gecko/20100101 Firefox/140.0"
+    }
+    resp = requests.get(url, headers=headers)
     soup = BeautifulSoup(resp.text, "html.parser")
     LOGGER.debug(soup)
     posts = soup("main")[0].find_all("article")
