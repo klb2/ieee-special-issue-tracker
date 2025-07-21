@@ -1,3 +1,4 @@
+import logging
 import re
 import unicodedata
 
@@ -6,6 +7,8 @@ import requests
 from bs4 import BeautifulSoup
 
 from constants import COL_JOURNAL, COL_DEADLINE, COL_PUB_DATE, COL_TOPIC
+
+LOGGER = logging.getLogger("spsoc")
 
 # URL = "https://signalprocessingsociety.org/publications-resources/special-issue-deadlines"
 URL = "https://signalprocessingsociety.org/publications-resources/special-issue-deadlines?page={}"

@@ -1,5 +1,6 @@
 import os.path
 from datetime import datetime
+import logging
 
 import pandas as pd
 import jinja2
@@ -10,6 +11,8 @@ import itsoc
 import vtsoc
 
 from constants import COL_DEADLINE, COL_TOPIC, COL_JOURNAL, COL_PUB_DATE
+
+LOGGER = logging.getLogger("main")
 
 FORMATTER_DATE = lambda x: datetime.strftime(x, "%B %d, %Y")
 FORMATTER_UNESCAPE = lambda x: x.replace("&gt;", ">").replace("&lt;", "<")
@@ -52,9 +55,9 @@ def clean_dataframe(data):
 
 def generate_society_table(module, **kwargs):
     data = module.get_all_cfp()
-    print(len(data))
+    LOGGER.info(f"Found a total of {len(data):d} entries.")
     data = clean_dataframe(data)
-    print(len(data))
+    LOGGER.info(f"Number of active calls: {len(data):d}")
     data = data.sort_values(COL_DEADLINE)
     data = data[[COL_TOPIC, COL_DEADLINE, COL_JOURNAL, COL_PUB_DATE]]
     if data.empty:
@@ -71,7 +74,7 @@ def generate_society_table(module, **kwargs):
 
 def main():
     for soc_info in SOCIETIES:
-        print("Working on society: {name}".format(**soc_info))
+        LOGGER.info("Working on society: {name}".format(**soc_info))
         _table = generate_society_table(**soc_info)
         soc_info["table"] = _table
 
@@ -86,4 +89,8 @@ def main():
 
 
 if __name__ == "__main__":
+    logging.basicConfig(
+        format="%(asctime)s - [%(levelname)8s] %(name)s: %(message)s",
+        level=logging.DEBUG,
+    )
     data = main()

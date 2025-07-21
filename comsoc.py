@@ -1,3 +1,4 @@
+import logging
 import unicodedata
 
 import pandas as pd
@@ -7,6 +8,7 @@ from bs4 import BeautifulSoup
 from constants import COL_JOURNAL, COL_DEADLINE, COL_PUB_DATE, COL_TOPIC
 from others import _iotj_cfp
 
+LOGGER = logging.getLogger("comsoc")
 
 URL_SOC = "https://www.comsoc.org"
 JOURNALS = {
@@ -28,6 +30,7 @@ _COL_TOPIC = "Paper Topic"
 
 
 def parse_comsoc_cfp(url: str, journal_name: str):
+    LOGGER.info(f"Parsing journal {journal_name}")
     resp = requests.get(url)
     soup = BeautifulSoup(resp.text, "html.parser")
     tables = soup.find_all("table")
