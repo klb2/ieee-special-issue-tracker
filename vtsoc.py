@@ -34,6 +34,7 @@ def parse_journal_cfp(url: str, journal: str):
     LOGGER.info(f"Parsing journal {journal}")
     resp = requests.get(url)
     soup = BeautifulSoup(resp.text, "html.parser")
+    LOGGER.debug(soup)
     posts = soup("main")[0].find_all("article")
     rows = []
     for post in posts:

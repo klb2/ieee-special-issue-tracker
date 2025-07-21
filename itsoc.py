@@ -20,7 +20,7 @@ def get_all_cfp():
     resp = requests.get(URL)
     LOGGER.debug(f"Response code: {resp.status_code}")
     soup = BeautifulSoup(resp.text, "html.parser")
-    # LOGGER.debug(soup)
+    LOGGER.debug(soup)
     entries = soup.find_all("div", {"class": "call-for-papers"})
     LOGGER.debug(f"Found a total of {len(entries):d} entries")
     rows = []
