@@ -75,7 +75,12 @@ def generate_society_table(module, **kwargs):
 def main():
     for soc_info in SOCIETIES:
         LOGGER.info("Working on society: {name}".format(**soc_info))
-        _table = generate_society_table(**soc_info)
+        try:
+            _table = generate_society_table(**soc_info)
+        except Exception as e:
+            LOGGER.error(f"Error while generating the table for society '{name}'")
+            LOGGER.error(e)
+            _table = "Error while parsing the calls for papers"
         soc_info["table"] = _table
 
     env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
