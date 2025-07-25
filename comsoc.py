@@ -32,6 +32,8 @@ _COL_TOPIC = "Paper Topic"
 def parse_comsoc_cfp(url: str, journal_name: str):
     LOGGER.info(f"Parsing journal {journal_name}")
     resp = requests.get(url)
+    if not resp.ok:
+        raise requests.ConnectionError("Error while retrieving the CfP website.")
     soup = BeautifulSoup(resp.text, "html.parser")
     tables = soup.find_all("table")
     table = tables[0]

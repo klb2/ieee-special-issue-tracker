@@ -38,6 +38,8 @@ def parse_journal_cfp(url: str, journal: str):
     resp = requests.get(url, headers=headers)
     soup = BeautifulSoup(resp.text, "html.parser")
     LOGGER.debug(soup)
+    if not resp.ok:
+        raise requests.ConnectionError("Error while retrieving the CfP website.")
     posts = soup("main")[0].find_all("article")
     rows = []
     for post in posts:

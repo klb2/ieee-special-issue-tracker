@@ -35,6 +35,8 @@ def get_all_cfp():
 def get_single_page(page=0):
     url = URL.format(page)
     resp = requests.get(url)
+    if not resp.ok:
+        raise requests.ConnectionError("Error while retrieving the CfP website.")
     soup = BeautifulSoup(resp.text, "html.parser")
     posts = soup.find_all("section", {"class": "post-content"})
     rows = []

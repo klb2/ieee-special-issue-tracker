@@ -78,7 +78,7 @@ def main():
         try:
             _table = generate_society_table(**soc_info)
         except Exception as e:
-            LOGGER.error(f"Error while generating the table for society '{name}'")
+            LOGGER.error("Error while generating the table for society '{name}'".format(**soc_info))
             LOGGER.error(e)
             _table = "Error while parsing the calls for papers"
         soc_info["table"] = _table
