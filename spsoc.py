@@ -49,14 +49,14 @@ def get_single_page(page=0):
         for _match in body.find_all("strong"):
             _match.unwrap()
         body.smooth()
-        _date_strings = list(body.stripped_strings)
+        _date_strings = [re.sub(r'\s', ' ', k) for k in body.stripped_strings]
         due_date = re.match(RE_DATE, str(_date_strings[0]))[1]
         try:
             pub_date = re.match(RE_DATE, str(_date_strings[1]))[1]
         except:  # TypeError:
             pub_date = "Unknown"
         try:
-            url_cfp = f"{URL_SOC}{body.find('a')['href']}"
+            url_cfp = f"{URL_SOC}{header.find('a')['href']}"
             topic = f'<a href="{url_cfp}">{topic}</a>'
         except:
             try:
