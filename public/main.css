@@ -5,8 +5,6 @@
 }
 
 body {
-	--webkit-font-smoothing: antialiased;
-	--moz-osx-font-smoothing: grayscale;
 	background-color: #fdfdfd; /*#fafafa;*/
 	color: #222;
 	font-size: 1.15rem;
